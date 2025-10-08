@@ -1,0 +1,1236 @@
+{
+	"info": {
+		"_postman_id": "14994904-53ecf984-baad-4a0b-9a30-a276b4c7d1e2",
+		"name": "Postman Library API v2 docs",
+		"description": "Manage books in the Postman library using this API. This API is designed to teach the basics of using APIs and Postman!\n\nNote that all non-permanent collection books are automatically deleted on a three-day rolling basis\n\n## Permanent collection books\n\nSome books are part of the **permanent collection** and cannot be edited or deleted. These books have the property `isPermanentCollection: true`\n\n## Authorizing requests\n\nThis API requires Authorization to make POST, PATCH, and DELETE requests.\n\nYou will need to set the API key in the collection variables to `postmanrulz` in order to make those requests.\n\nIn the real world you would generate an API Key with an API's developer portal service. This is just a training API so we have provided an API key for you!\n\nLearn more about authorizing API requests in Postman [here](https://learning.postman.com/docs/sending-requests/authorization/).\n\n## This is a public API!\n\nAny book you add or update will be publicly visible to all users of this API. Please be respectful and follow these rules:\n\n- Only modify books you have added yourself\n    \n- Understand that books in this API may be deleted at any time\n    \n\n## What's different from the old [Postman Library API](https://www.postman.com/postman/workspace/postman-classroom-program/collection/15567703-da68bf1c-1aae-4f14-a79b-95926a816366?ctx=documentation)?\n\nThe old Library API was used in the [Postman Classroom Program](https://www.postman.com/postman/workspace/postman-classroom-program/overview) modules. We made some improvements for v2:\n\n- **API Key Auth for POST/PATCH/DELETE requests**. Practice authorization!\n    \n- **POST/PATCH requests now return book info such as** **`id`**. This enables possibilities with scripting based on the response.\n    \n- **Dedicated public workspace and docs**. You can view this API's schema from the \"API\" tab in the public workspace. Easily find and fork this API or docs by searching \"Postman Library API v2\"\n    \n- **Automatic cleanup**. Non-permanent collection books are automatically deleted on a rolling three-day basis.\n    \n- **Profanity filters**. Cleans up book titles and author names",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "books",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Get a book by id",
+							"id": "14994904-b0c21574-04cf-42df-b400-a22223f4ec7f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/books/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books",
+										":id"
+									],
+									"variable": [
+										{
+											"id": "b59cc6ab-754e-49ed-b4d2-82ae0c963543",
+											"key": "id",
+											"value": "3e133c0d-ebbb-4c0f-9110-365cd2a1c431",
+											"description": "(Required) the id of a book"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "14994904-e033ef33-4877-4b70-b099-3a69616cc4cf",
+									"name": "Found book",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "29cd820f-82f9-4b45-a7f4-0924111b5b89",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n        \"id\": \"29cd820f-82f9-4b45-a7f4-0924111b5b89\",\n        \"title\": \"Ficciones\",\n        \"author\": \"Jorge Luis Borges\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1944,\n        \"checkedOut\": false,\n        \"isPermanentCollection\": true,\n        \"createdAt\": \"2022-03-04T22:10:24.526Z\"\n    }"
+								},
+								{
+									"id": "14994904-7fb95c79-9f9d-473c-a065-59dfb0c9a6da",
+									"name": "Book not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "29cd820f-82f9-4b45-a7f4-0924111b5b80",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"message\": \"Book with id '29cd820f-82f9-4b45-a7f4-0924111b5b80 not found\"\n}"
+								},
+								{
+									"id": "14994904-90fa144e-b67f-4bc9-ad77-44e951b7231d",
+									"name": "Unexpected error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "fugiat amet in aliquip Excepteur",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"something\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update a book by id",
+							"id": "14994904-fd7e06cf-8fc3-457c-8dd5-ea0d10614d58",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{apiKey}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "api-key",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"checkedOut\": true,\n    \"yearPublished\": 2022\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/books/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books",
+										":id"
+									],
+									"variable": [
+										{
+											"id": "fb59e18e-afa6-4cd3-b938-77c7b7df7f88",
+											"key": "id",
+											"value": "3e133c0d-ebbb-4c0f-9110-365cd2a1c431",
+											"description": "(Required) the id of a book"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "14994904-d2e76f40-fe09-4522-89f3-ac51fff5f8d1",
+									"name": "Update successful",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"checkedOut\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "29cd820f-82f9-4b45-a7f4-0924111b5b89",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n        \"id\": \"29cd820f-82f9-4b45-a7f4-0924111b5b89\",\n        \"title\": \"Ficciones\",\n        \"author\": \"Jorge Luis Borges\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1944,\n        \"checkedOut\": true,\n        \"isPermanentCollection\": true,\n        \"createdAt\": \"2022-03-04T22:10:24.526Z\"\n    }"
+								},
+								{
+									"id": "14994904-3726356a-b14a-464d-840e-e6ea826cadbb",
+									"name": "Bad request",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"checkedOut\": \"foo\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "29cd820f-82f9-4b45-a7f4-0924111b5b89",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"message\": \"body/checkedOut must be boolean\",\n    \"errors\": [\n        {\n            \"instancePath\": \"/checkedOut\",\n            \"schemaPath\": \"#/properties/checkedOut/type\",\n            \"keyword\": \"type\",\n            \"params\": {\n                \"type\": \"boolean\"\n            },\n            \"message\": \"must be boolean\"\n        }\n    ]\n}"
+								},
+								{
+									"id": "14994904-211044c6-94ab-43fe-a866-3306d0386fdf",
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "29cd820f-82f9-4b45-a7f4-0924111b5b89",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"message\": \"Invalid or missing credentials. Make sure you add 'api-key' to the request headers with a valid value\"\n}"
+								},
+								{
+									"id": "14994904-4b00915b-0d5c-47f5-ba11-4c8c5da1d9fb",
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "29cd820f-82f9-4b45-a7f4-0924111b5b8a",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"message\": \"You cannot modify books in the permanent collection! Book with id '29cd820f-82f9-4b45-a7f4-0924111b5b89' is in the permanent collection.\"\n}"
+								},
+								{
+									"id": "14994904-f893e6ca-2d67-4ea0-b77a-a3a080a4af8b",
+									"name": "Book not found",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "fugiat amet in aliquip Excepteur",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"message\": \"Book with id '29cd820f-82f9-4b45-a7f4-0924111b5b80' not found\"\n}"
+								},
+								{
+									"id": "14994904-ba09f370-6d63-4d8d-a23f-295c5a760cbe",
+									"name": "Unexpected error",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "fugiat amet in aliquip Excepteur",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"something\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete a book by id",
+							"id": "14994904-e6feeb70-ab46-4aac-a805-b3c977c50979",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{apiKey}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "api-key",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/books/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books",
+										":id"
+									],
+									"variable": [
+										{
+											"id": "a7dc48af-df8b-4f32-9b4e-6966245378cf",
+											"key": "id",
+											"value": "29f47d22-1062-479d-be58-2d8db3ecb8be",
+											"description": "(Required) the id of a book"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "14994904-78beb54a-e3c2-4f20-abbe-430553cb1198",
+									"name": "Delete successful",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "29cd820f-82f9-4b45-a7f4-0924111b5b89",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": ""
+								},
+								{
+									"id": "14994904-c4e8b210-06a9-44de-8fce-69335d18e294",
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "29cd820f-82f9-4b45-a7f4-0924111b5b89",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"message\": \"Invalid or missing credentials. Make sure you add 'api-key' to the request headers with a valid value\"\n}"
+								},
+								{
+									"id": "14994904-f0dd17ff-d387-489b-a4f0-a3400a27ef9d",
+									"name": "Forbidden",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "29cd820f-82f9-4b45-a7f4-0924111b5b89",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"message\": \"You cannot modify books in the permanent collection! Book with id '29cd820f-82f9-4b45-a7f4-0924111b5b89' is in the permanent collection.\"\n}"
+								},
+								{
+									"id": "14994904-c9e3a721-4958-40eb-9808-64379591f865",
+									"name": "Book not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "29cd820f-82f9-4b45-a7f4-0924111b5b8e",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"message\": \"Book with id '29cd820f-82f9-4b45-a7f4-0924111b5b8e' not found\"\n}"
+								},
+								{
+									"id": "14994904-eebe66fc-43e7-4550-adb6-c6a14d24387e",
+									"name": "Unexpected error",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/books/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "29cd820f-82f9-4b45-a7f4-0924111b5b89",
+													"description": "(Required) the id of a book"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"something\"\n}"
+								}
+							]
+						}
+					],
+					"id": "14994904-8697e7dd-7bd0-41df-9f64-3fd286715138"
+				},
+				{
+					"name": "Get books",
+					"id": "14994904-011d1770-df27-4b74-86fc-c09b78e8be33",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "genre",
+									"value": "fiction",
+									"description": "a genre to filter for",
+									"disabled": true
+								},
+								{
+									"key": "checkedOut",
+									"value": "false",
+									"description": "a value true or false",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "borges",
+									"description": "a search term to match against author or title",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all books, or add query parameters to filter results by `genre`, `search` keyword, and/or `checkedOut` status"
+					},
+					"response": [
+						{
+							"id": "14994904-c50cc1bf-d0c2-4985-880f-89a46ef188c6",
+							"name": "A list of all books",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/books?genre=fiction&checkedOut=false",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books"
+									],
+									"query": [
+										{
+											"key": "genre",
+											"value": "fiction"
+										},
+										{
+											"key": "checkedOut",
+											"value": "false"
+										},
+										{
+											"key": "search",
+											"value": "borges",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "[\n   {\n        \"id\": \"50b1a8e9-78f0-4a80-b350-8fdf8fb1b8b8\",\n        \"title\": \"A Thousand Splendid Suns\",\n        \"author\": \"Khaled Hosseini\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 2007,\n        \"checkedOut\": false,\n        \"isPermanentCollection\": true,\n        \"createdAt\": \"2022-03-04T22:10:24.526Z\"\n    },\n    {\n        \"id\": \"29cd820f-82f9-4b45-a7f4-0924111b5b89\",\n        \"title\": \"Ficciones\",\n        \"author\": \"Jorge Luis Borges\",\n        \"genre\": \"fiction\",\n        \"yearPublished\": 1944,\n        \"checkedOut\": false,\n        \"isPermanentCollection\": true,\n        \"createdAt\": \"2022-03-04T22:10:24.526Z\"\n    }\n]"
+						},
+						{
+							"id": "14994904-c1345489-d68e-4f52-b318-e806a932139c",
+							"name": "Unexpected error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/books?genre=fugiat amet in aliquip Excepteur&checkedOut=fugiat amet in aliquip Excepteur&search=fugiat amet in aliquip Excepteur",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books"
+									],
+									"query": [
+										{
+											"key": "genre",
+											"value": "fugiat amet in aliquip Excepteur"
+										},
+										{
+											"key": "checkedOut",
+											"value": "fugiat amet in aliquip Excepteur"
+										},
+										{
+											"key": "search",
+											"value": "fugiat amet in aliquip Excepteur"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n  \"status\": \"error\",\n  \"message\": \"something\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Add a book",
+					"id": "14994904-b664a928-6f1a-4ede-80a8-4981e17781a2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{apiKey}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "api-key",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Wieża Tajemnic\",\n  \"author\": \"Remigiusz Mróz\",\n  \"genre\": \"criminal\",\n  \"yearPublished\": 2025\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"books"
+							]
+						},
+						"description": "Note: User-added books are automatically deleted about 3 days after being added."
+					},
+					"response": [
+						{
+							"id": "14994904-b489ab01-32ba-4500-b2dc-b951c5bea558",
+							"name": "Book created successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "api-key",
+										"value": "<API Key>",
+										"description": "Added as a part of security scheme: apikey"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"The Four Agreements\",\n  \"author\": \"don Miguel Ruiz\",\n  \"genre\": \"self-help\",\n  \"yearPublished\": 1997\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://library-api.postmanlabs.com/books",
+									"protocol": "https",
+									"host": [
+										"library-api",
+										"postmanlabs",
+										"com"
+									],
+									"path": [
+										"books"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"id\": \"6d63c5b9-74ed-40ff-9415-81589189f690\",\n    \"title\": \"The Four Agreements\",\n    \"author\": \"don Miguel Ruiz\",\n    \"genre\": \"self-help\",\n    \"yearPublished\": 1997,\n    \"checkedOut\": false,\n    \"isPermanentCollection\": false,\n    \"createdAt\": \"2022-03-17T16:09:41.950Z\"\n}"
+						},
+						{
+							"id": "14994904-a49a151f-da92-4d0e-a028-3e3fb5a31efe",
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "api-key",
+										"value": "<API Key>",
+										"description": "Added as a part of security scheme: apikey"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"The Four Agreements\",\n  \"author\": \"don Miguel Ruiz\",\n  \"yearPublished\": \"foo\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/books",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"message\": \"body must have required property 'genre', body/yearPublished must be integer\",\n    \"errors\": [\n        {\n            \"instancePath\": \"\",\n            \"schemaPath\": \"#/required\",\n            \"keyword\": \"required\",\n            \"params\": {\n                \"missingProperty\": \"genre\"\n            },\n            \"message\": \"must have required property 'genre'\"\n        },\n        {\n            \"instancePath\": \"/yearPublished\",\n            \"schemaPath\": \"#/properties/yearPublished/type\",\n            \"keyword\": \"type\",\n            \"params\": {\n                \"type\": \"integer\"\n            },\n            \"message\": \"must be integer\"\n        }\n    ]\n}"
+						},
+						{
+							"id": "14994904-ad1fb699-dc65-4f72-92c6-e54ddbf8c8ef",
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "api-key",
+										"value": "<API Key>",
+										"description": "Added as a part of security scheme: apikey",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"The Four Agreements\",\n  \"author\": \"don Miguel Ruiz\",\n  \"genre\": \"self-help\",\n  \"yearPublished\": 1997\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/books",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"message\": \"Invalid or missing credentials. Make sure you add 'api-key' to the request headers with a valid value\"\n}"
+						},
+						{
+							"id": "14994904-cca40e1d-67d0-433a-a5cd-478288b6975a",
+							"name": "Unexpected error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "api-key",
+										"value": "<API Key>",
+										"description": "Added as a part of security scheme: apikey"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"The Four Agreements\",\n  \"author\": \"don Miguel Ruiz\",\n  \"genre\": \"self-help\",\n  \"yearPublished\": 1997\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/books",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n  \"status\": \"error\",\n  \"message\": \"something\"\n}"
+						}
+					]
+				}
+			],
+			"id": "14994904-f10bc56d-5370-45b6-b01e-8a065cd8ee9a"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a0ef4c03-8a0b-48e9-acde-5afba2fc739b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0df1be58-4fb7-48ba-b5f5-3bf892131e14",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "bd6a0c01-cd2a-47e6-a60d-d9efd22d50b9",
+			"key": "baseUrl",
+			"value": "https://library-api.postmanlabs.com"
+		},
+		{
+			"id": "d036201b-1c85-48a3-aed8-b7d084c09928",
+			"key": "apiKey",
+			"value": "postmanrulz"
+		},
+		{
+			"id": "503f115e-7708-4e52-b720-c6227a11ca1c",
+			"key": "test",
+			"value": ""
+		}
+	]
+}
