@@ -987,7 +987,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Wieża Tajemnic\",\n  \"author\": \"Remigiusz Mróz\",\n  \"genre\": \"criminal\",\n  \"yearPublished\": 2024\n}",
+							"raw": "{\n  \"title\": \"Wieża Tajemnic\",\n  \"author\": \"Remigiusz Mróz\",\n  \"genre\": \"criminal\",\n  \"yearPublished\": 2025\n}",
 							"options": {
 								"raw": {
 									"language": "json"
