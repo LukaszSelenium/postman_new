@@ -1196,7 +1196,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "d2434f31-00cd-4569-8eb1-43b02feb178e",
+				"id": "5fe6ffb0-b7cf-47d1-bd01-ba3766055f34",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1206,7 +1206,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "ee29296d-b6f3-4b83-9b8c-51a2197edefe",
+				"id": "95db8611-be2b-4601-a35c-d119f7dd458c",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1217,12 +1217,15 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "https://library-api.postmanlabs.com",
-			"type": "string"
+			"value": "https://library-api.postmanlabs.com"
 		},
 		{
 			"key": "apiKey",
-			"value": "postmanrulz",
+			"value": "postmanrulz"
+		},
+		{
+			"key": "test",
+			"value": "",
 			"type": "string"
 		}
 	]
