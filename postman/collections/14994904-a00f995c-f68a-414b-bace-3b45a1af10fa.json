@@ -1187,6 +1187,484 @@
 							"body": "{\n  \"status\": \"error\",\n  \"message\": \"something\"\n}"
 						}
 					]
+				},
+				{
+					"name": "Demo CRUD flow",
+					"id": "f9c642a4-b77f-4d7c-ac0a-47d9a1ba4c4b",
+					"description": "Step-by-step scenario demonstrating how to create, read, update, and delete a user-created book. The first request stores the generated book id in the collection variable `newBookId`, which is reused by the remaining requests.",
+					"item": [
+						{
+							"name": "Create demo book",
+							"id": "d872c7f1-8a2f-4f3a-98d7-4c6ff3a73b72",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{apiKey}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "api-key",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Postman Demo\",\n  \"author\": \"API Student\",\n  \"genre\": \"tutorial\",\n  \"yearPublished\": 2024\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/books",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books"
+									]
+								},
+								"description": "Creates a new demo book in the public catalogue. The returned `id` is stored as the `newBookId` collection variable for reuse in subsequent demo requests."
+							},
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "813fd0a7-5fdd-4dcc-b29e-7088136ac95c",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Book created\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"",
+											"const json = pm.response.json();",
+											"pm.test(\"Response contains book id\", function () {",
+											"    pm.expect(json).to.have.property(\"id\");",
+											"});",
+											"",
+											"pm.collectionVariables.set(\"newBookId\", json.id);",
+											"pm.test(\"Stored newBookId\", function () {",
+											"    pm.expect(pm.collectionVariables.get(\"newBookId\")).to.eql(json.id);",
+											"});"
+										]
+									}
+								}
+							],
+							"response": [
+								{
+									"id": "9b6d725d-c88a-4838-8c92-31021f9b63aa",
+									"name": "Demo book created",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"title\": \"Postman Demo\",\n  \"author\": \"API Student\",\n  \"genre\": \"tutorial\",\n  \"yearPublished\": 2024\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/books",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"id\": \"{{newBookId}}\",\n    \"title\": \"Postman Demo\",\n    \"author\": \"API Student\",\n    \"genre\": \"tutorial\",\n    \"yearPublished\": 2024,\n    \"checkedOut\": false,\n    \"isPermanentCollection\": false,\n    \"createdAt\": \"2024-05-30T08:25:17.325Z\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get demo book",
+							"id": "e4dd5ad8-6a2e-4b4b-8afb-3b33f7ec9342",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/books/{{newBookId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books",
+										"{{newBookId}}"
+									]
+								},
+								"description": "Fetches the demo book created in the previous step using the stored `newBookId` collection variable."
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e4c5d6d3-1b74-45dd-918c-97c6b80eb875",
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"newBookId\")) {",
+											"    throw new Error(\"newBookId is not set. Run the Create demo book request first.\");",
+											"}"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "2a0d2737-cf88-4eb4-ad3e-643ada6abc56",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Fetched demo book\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Response matches requested id\", function () {",
+											"    pm.expect(pm.response.json().id).to.eql(pm.collectionVariables.get(\"newBookId\"));",
+											"});"
+										]
+									}
+								}
+							],
+							"response": [
+								{
+									"id": "c4b1d7ab-1d20-46d7-aac9-07c2850eacd2",
+									"name": "Demo book found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/books/{{newBookId}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												"{{newBookId}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"id\": \"{{newBookId}}\",\n    \"title\": \"Postman Demo\",\n    \"author\": \"API Student\",\n    \"genre\": \"tutorial\",\n    \"yearPublished\": 2024,\n    \"checkedOut\": false,\n    \"isPermanentCollection\": false,\n    \"createdAt\": \"2024-05-30T08:25:17.325Z\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update demo book",
+							"id": "b4f8db24-7f3d-4e3e-95c2-d7af6b0e6a83",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{apiKey}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "api-key",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"checkedOut\": true,\n  \"yearPublished\": 2025\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/books/{{newBookId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books",
+										"{{newBookId}}"
+									]
+								},
+								"description": "Updates selected fields on the demo book created earlier. Requires the `newBookId` variable and a valid API key."
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "df551d21-af8c-462c-9736-d6bc0d2b4b32",
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"newBookId\")) {",
+											"    throw new Error(\"newBookId is not set. Run the Create demo book request first.\");",
+											"}"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "c25b27f2-01d1-40c3-9d30-0f9e1d234114",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Demo book updated\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Response reflects updates\", function () {",
+											"    const json = pm.response.json();",
+											"    pm.expect(json.id).to.eql(pm.collectionVariables.get(\"newBookId\"));",
+											"    pm.expect(json.checkedOut).to.be.true;",
+											"    pm.expect(json.yearPublished).to.eql(2025);",
+											"});"
+										]
+									}
+								}
+							],
+							"response": [
+								{
+									"id": "a33d2a4c-49e2-4fc8-8c5d-ac3fb24b8561",
+									"name": "Demo book updated",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"checkedOut\": true,\n  \"yearPublished\": 2025\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/books/{{newBookId}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												"{{newBookId}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n    \"id\": \"{{newBookId}}\",\n    \"title\": \"Postman Demo\",\n    \"author\": \"API Student\",\n    \"genre\": \"tutorial\",\n    \"yearPublished\": 2025,\n    \"checkedOut\": true,\n    \"isPermanentCollection\": false,\n    \"createdAt\": \"2024-05-30T08:25:17.325Z\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete demo book",
+							"id": "cfcd3d9a-49ea-4e5f-8c77-03c8b4d6bb05",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{apiKey}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "api-key",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/books/{{newBookId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"books",
+										"{{newBookId}}"
+									]
+								},
+								"description": "Deletes the demo book and clears the stored `newBookId` variable so the flow can be re-run safely."
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8b21d032-4a31-40ab-a338-5395969c055a",
+										"type": "text/javascript",
+										"exec": [
+											"if (!pm.collectionVariables.get(\"newBookId\")) {",
+											"    throw new Error(\"newBookId is not set. Run the Create demo book request first.\");",
+											"}"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "3d9cff1c-18c9-4bf6-969a-05ad19b65fce",
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Demo book deleted\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											"pm.collectionVariables.unset(\"newBookId\");",
+											"pm.test(\"Cleared newBookId\", function () {",
+											"    pm.expect(pm.collectionVariables.get(\"newBookId\")).to.be.undefined;",
+											"});"
+										]
+									}
+								}
+							],
+							"response": [
+								{
+									"id": "987c4df4-57ee-4f69-b17f-d6221f5206cb",
+									"name": "Demo book deleted",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "api-key",
+												"value": "<API Key>",
+												"description": "Added as a part of security scheme: apikey"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/books/{{newBookId}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"books",
+												"{{newBookId}}"
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": ""
+								}
+							]
+						}
+					]
 				}
 			],
 			"id": "14994904-44fa3747-182d-4ccd-bbc0-56c0176884e4"
@@ -1222,6 +1700,12 @@
 		{
 			"key": "apiKey",
 			"value": "postmanrulz"
+		},
+		{
+			"key": "newBookId",
+			"value": "",
+			"type": "string",
+			"description": "Stores the id of the book created in the Demo CRUD flow."
 		},
 		{
 			"key": "test",
